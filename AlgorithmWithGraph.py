@@ -54,7 +54,7 @@ meanFitnessValues = []
 BadFitnessValues = []
 
 population.sort(key=lambda ind: ind.value)
-print(population)
+print(str(ind) + ", " + str(ind.value) for ind in population)
 
 
 def clone(value):
@@ -97,7 +97,7 @@ def animate(i):
 
     ax.clear()
     ax.plot_wireframe(X, Y, Z, rstride=30, cstride=30)
-    ax.text(LIMIT_VALUE_DOWN, LIMIT_VALUE_DOWN, 40000, "Поколение: " + str(generationCounter))
+    ax.text(LIMIT_VALUE_DOWN, LIMIT_VALUE_DOWN, 40000, "Поколение:" + str(generationCounter))
 
     ax.scatter(2, 4, -12, marker='o', edgecolors='green', linewidths=4)
 
@@ -105,7 +105,7 @@ def animate(i):
         ax.scatter(individ[0], individ[1], individ.value, marker='*', edgecolors='red')
 
     if generationCounter == 1:
-        time.sleep(3)
+        time.sleep(10)
 
     generationCounter += 1
     offspring = selection(population)
@@ -154,12 +154,15 @@ Y = np.arange(LIMIT_VALUE_DOWN, LIMIT_VALUE_TOP, 0.5)
 X, Y = np.meshgrid(X, Y)
 Z = (X ** 2 + 1.5 * Y ** 2 - 2 * X * Y + 4 * X - 8 * Y)
 
-ani = animation.FuncAnimation(fig, animate, interval=2000)
+ani = animation.FuncAnimation(fig, animate, interval=900)
 
 
 plt.xlabel('Поколение')
 plt.ylabel('Мин/средняя/max приспособленность')
 
 plt.title("Нахождение глобального минимума фукнции с помощью генетического алгоритма")
+
+mng = plt.get_current_fig_manager()
+mng.full_screen_toggle()
 plt.show()
 
